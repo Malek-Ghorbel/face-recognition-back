@@ -20,7 +20,7 @@ app.get('/' , (req , res) => {
     db.select('*').from('users')
     .then(user =>{ 
         if(user.length) res.json(user) ;
-        else res.status(400).json('not found') ;
+        else res.json('not found') ;
     });
 })
 
