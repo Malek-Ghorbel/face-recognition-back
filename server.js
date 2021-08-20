@@ -17,7 +17,11 @@ app.use(bodyParser.json()) ;
 app.use(cors()) ;        
 
 app.get('/' , (req , res) => {
-    res.send('its working') 
+    db.select('*').from('users')
+    .then(user =>{ 
+        if(user.length) res.json(user) ;
+        else res.status(400).json('not found') ;
+    });
 })
 
 app.post('/signin' , (req, res) => {
