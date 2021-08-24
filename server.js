@@ -9,7 +9,7 @@ const db = knex({
     connection : {
         connectionString: process.env.DATABASE_URL,
         ssl: {
-            rejectUnauthorized: true
+            rejectUnauthorized: false
         }
     }
 }) ;
@@ -19,7 +19,12 @@ app.use(bodyParser.json()) ;
 app.use(cors()) ;        
 
 app.get('/' , (req , res) => {
-     res.json('user') ;
+    db.select('hash').from('login')
+    .where('email' , '=' , 'siwar.soukra@gmail.com')
+    .then(data => {
+        console.log(data);
+        })
+    .catch(err => console.log(err))
      
 })
 
@@ -92,10 +97,5 @@ app.put('/image' , (req, res) => {
 
 app.listen(process.env.PORT || 3000, () => {
     console.log(`app running on ${process.env.PORT}`);
-    db.select('hash').from('login')
-    .where('email' , '=' , 'siwar.soukra@gmail.com')
-    .then(data => {
-        console.log(data);
-        })
-    .catch(err => console.log(err))
+    
 })
