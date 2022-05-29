@@ -19,13 +19,7 @@ app.use(bodyParser.json()) ;
 app.use(cors()) ;        
 
 app.get('/' , (req , res) => {
-    db.select('hash').from('login')
-    .where('email' , '=' , 'siwar.soukra@gmail.com')
-    .then(data => {
-        console.log(data);
-        })
-    .catch(err => console.log(err))
-     
+    res.send("app is working"); 
 })
 
 app.post('/signin' , (req, res) => {
@@ -46,7 +40,7 @@ app.post('/signin' , (req, res) => {
 
 app.post('/register' , (req, res) => {
     const {email , name, password} = req.body ;
-    if(!email || !name || !password) return res.status(400).json('dont leave it empty wtf xD')
+    if(!email || !name || !password) return res.status(400).json('dont leave it empty')
     const hash = bcrypt.hashSync(password);
 
     db.transaction(trx => {
